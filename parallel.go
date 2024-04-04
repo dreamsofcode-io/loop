@@ -1,6 +1,7 @@
 package crayon
 
 import (
+	"context"
 	"sync"
 )
 
@@ -16,6 +17,9 @@ import (
 // method will speed up performance. (using time.Sleep)
 func Parallel[E any](xs []E) func(func(int, E) bool) {
 	return func(yield func(int, E) bool) {
+		ctx, cancel := context.WithCancel(context.Background())
+		defer cancel()
+
 		var wg sync.WaitGroup
 		wg.Add(len(xs))
 
@@ -23,8 +27,14 @@ func Parallel[E any](xs []E) func(func(int, E) bool) {
 			go func() {
 				defer wg.Done()
 
-				if !yield(i, x) {
-					return
+				select {
+					case <-ctx.Done():
+						return
+					default:
+						if !yield(i, x) {
+							cancel()
+							return
+						}
 				}
 			}()
 		}

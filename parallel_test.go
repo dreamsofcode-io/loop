@@ -4,35 +4,49 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/dreamsofcode-io/crayon"
 )
 
 var count uint64 = 1000
 
+func TestParallelShouldNotPanic(t *testing.T) {
+	xs := []int{}
+
+	for range 10000 {
+		xs = append(xs)
+	}
+
+	for i, _ := range crayon.Parallel(xs) {
+		if i > 300 {
+			break
+		}
+	}
+}
+
 // Parallel
 func TestParallel(t *testing.T) {
 	testCases := []struct {
 		name  string
-		input []uint64
-		wants uint64
+		input []int
+		wants int
 	}{
 		{
 			name:  "",
-			input: []uint64{1, 2, 3, 4, 5},
+			input: []int{1, 2, 3, 4, 5},
 			wants: 15,
 		},
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			sum := uint64(0)
+			sum := 0
 			for _, x := range crayon.Parallel(tc.input) {
 				sum += x
 			}
 
-			if sum != tc.wants {
-				t.Errorf("Reverse: %q, want %q", sum, tc.wants)
-			}
+			assert.Equal(t, sum, tc.wants)
 		})
 	}
 }
