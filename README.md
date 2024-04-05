@@ -154,3 +154,21 @@ The above code will print out
 ```
 
 The `loop.Range` method includes the starting value, but excludes the stop value.
+
+### ParallelTimes
+
+This method allows to perform a parallel operation for a given number of times.
+
+For example
+
+```go
+import "github.com/dreamsofcode-io/loop"
+
+func main() {
+    for i := range loop.ParallelTimes(10) {
+        time.Sleep(time.Second)
+    }
+}
+```
+
+will cause time.Sleep to be called 10 times in parallel.
