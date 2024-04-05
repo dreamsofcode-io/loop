@@ -1,4 +1,4 @@
-module github.com/dreamsofcode-io/crayon
+module github.com/dreamsofcode-io/loop
 
 go 1.22.1
 

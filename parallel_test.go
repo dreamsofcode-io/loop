@@ -1,4 +1,4 @@
-package crayon_test
+package loop_test
 
 import (
 	"testing"
@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/dreamsofcode-io/crayon"
+	"github.com/dreamsofcode-io/loop"
 )
 
 var count uint64 = 1000
@@ -18,7 +18,7 @@ func TestParallelShouldNotPanic(t *testing.T) {
 		xs = append(xs)
 	}
 
-	for i, _ := range crayon.Parallel(xs) {
+	for i, _ := range loop.Parallel(xs) {
 		if i > 300 {
 			break
 		}
@@ -42,7 +42,7 @@ func TestParallel(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			sum := 0
-			for _, x := range crayon.Parallel(tc.input) {
+			for _, x := range loop.Parallel(tc.input) {
 				sum += x
 			}
 
@@ -58,7 +58,7 @@ func BenchmarkParallel(b *testing.B) {
 	}
 
 	for range b.N {
-		for _, _ = range crayon.Parallel(xs) {
+		for _, _ = range loop.Parallel(xs) {
 			time.Sleep(time.Microsecond)
 		}
 	}

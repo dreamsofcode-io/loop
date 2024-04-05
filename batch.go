@@ -1,4 +1,4 @@
-package crayon
+package loop
 
 // Batch is used to turn any slice into an iterator of batches, with the size
 // of each batch being the second parameter.

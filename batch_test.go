@@ -1,17 +1,17 @@
-package crayon_test
+package loop_test
 
 import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/dreamsofcode-io/crayon"
+	"github.com/dreamsofcode-io/loop"
 )
 
 func TestBatchIncrementor(t *testing.T) {
 	expected := 0
 
-	for i, _ := range crayon.Batch([]int{1, 2, 3, 4, 5, 6, 7, 8, 9}, 2) {
+	for i, _ := range loop.Batch([]int{1, 2, 3, 4, 5, 6, 7, 8, 9}, 2) {
 		assert.Equal(t, expected, i)
 		expected += 1
 	}
@@ -67,7 +67,7 @@ func TestBatch(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			res := [][]int{}
-			for _, x := range crayon.Batch(tc.input.items, tc.input.size) {
+			for _, x := range loop.Batch(tc.input.items, tc.input.size) {
 				res = append(res, x)
 			}
 

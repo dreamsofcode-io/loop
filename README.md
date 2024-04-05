@@ -1,6 +1,6 @@
-# Crayon
+# Loop
 
-Crayon is a package that provides commonly used functions
+Loop is a package that provides commonly used functions
 for ranging.
 
 ⚠️ This package currently relies on the experimental
@@ -27,14 +27,14 @@ The parallel iterator provides this functionality in an easy to use interface
 ```go
 package main
 
-import "github.com/dreamsofcode-io/crayon"
+import "github.com/dreamsofcode-io/loop"
 
 func main() {
     xs := []int{1,2,3,4,5}
     squares := make([]int{}, len(xs))
 
     // Each iteration runs in a goroutine
-    for i, x := range crayon.Parallel(xs) {
+    for i, x := range loop.Parallel(xs) {
         // Simulate a long running task
         time.Sleep(time.Second)
         squares[i] = x * x
@@ -52,21 +52,21 @@ you'll want to make sure you are performing thread safe operations.
 
 The parallel task won't speed up any compute heavy operations, in that case, you're better
 off using a normal loop. However, in the event of performing network requests or async
-tasks, then using crayon.Parallel will improve performance.
+tasks, then using loop.Parallel will improve performance.
 
 ```go
 import (
     "slog"
     "net/http"
 
-    "github.com/dreamsofcode-io/crayon"
+    "github.com/dreamsofcode-io/loop"
 )
 
 func main() {
     colors := []string{"green", "yellow", "blue"}
 
     results := make([]*http.Response{}, len(colors))
-    for _, color := range crayon.Parallel(colors) {
+    for _, color := range loop.Parallel(colors) {
         _, err := http.Post("http://example.com/colors", "text/plain", strings.NewReader(color))
         if err != nil {
             slog.Error("oops", slog.Any(err))
@@ -80,15 +80,15 @@ func main() {
 The Batch function provides the ability to range over elements in batches. The size of each batch
 is decided by the given size argument, in which a batch will either be the same size or less than.
 
-The `crayon.Batch` method runs in a single goroutine
+The `loop.Batch` method runs in a single goroutine
 
 ```go
-import "github.com/dreamsofcode-io/crayon"
+import "github.com/dreamsofcode-io/loop"
 
 func main() {
     nums := []int{1, 2, 3, 4, 5}
 
-    for i, batch := range crayon.Batch(nums, 2) {
+    for i, batch := range loop.Batch(nums, 2) {
         fmt.Println(i, batch)
     }
 }

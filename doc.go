@@ -1,4 +1,4 @@
-// Package crayon provides a number of commonly used
+// Package loop provides a number of commonly used
 // methods for ranging over functions.
 //
 // Due to the experimental nature of the range-over-function feature
@@ -11,4 +11,4 @@
 //
 // When this feature is no longer experiemental, then this
 // package will likely be much more useful.
-package crayon
+package loop
