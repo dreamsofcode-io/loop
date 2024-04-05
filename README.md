@@ -75,6 +75,30 @@ func main() {
 }
 ```
 
+### Pool
+The pool function is very similar to `loop.Parallel`, however it allows to caller to set the
+concurrency amount with the second argument.
+
+This is useful in the event you want bounded concurrency.
+
+```go
+package main
+
+import "github.com/dreamsofcode-io/loop"
+
+func main() {
+    xs := []int{1,2,3,4,5}
+
+    // Each iteration runs in a goroutine
+    for _, x := range loop.Pool(xs, 2) {
+        // Simulate a long running task
+        time.Sleep(time.Second)
+    }
+}
+```
+
+In the above example, only 2 elements will be performed at a time.
+
 ### Batch
 
 The Batch function provides the ability to range over elements in batches. The size of each batch
@@ -104,3 +128,4 @@ The above code will print the following output:
 
 If a batch size of 0 is passed in, then no iterations of the loop are performed. This behavior
 may change instead to panic as it's effectively a divide by 0.
+
