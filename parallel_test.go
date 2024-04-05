@@ -1,6 +1,7 @@
 package loop_test
 
 import (
+	"sync/atomic"
 	"testing"
 	"time"
 
@@ -49,6 +50,18 @@ func TestParallel(t *testing.T) {
 			assert.Equal(t, sum, tc.wants)
 		})
 	}
+}
+
+func TestParallelTimes(t *testing.T) {
+	sum := atomic.Int64{}
+	counter := atomic.Int64{}
+	for i := range loop.ParallelTimes(int64(5)) {
+		counter.Add(1)
+		sum.Add(i)
+	}
+
+	assert.Equal(t, counter.Load(), int64(5))
+	assert.Equal(t, sum.Load(), int64(10))
 }
 
 func BenchmarkParallel(b *testing.B) {

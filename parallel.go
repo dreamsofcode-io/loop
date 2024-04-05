@@ -17,24 +17,41 @@ import (
 // method will speed up performance. (using time.Sleep)
 func Parallel[E any](xs []E) func(func(int, E) bool) {
 	return func(yield func(int, E) bool) {
+		for i := range ParallelTimes(len(xs)) {
+			x := xs[i]
+			if !yield(i, x) {
+				break
+			}
+		}
+	}
+}
+
+// ParallelTimes allows you to peform a parallel iteration for a given
+// integer type.
+//
+// This is very similar to the loop.Parallel method, except that instead
+// of looping over a slice of elements, it instead will range for
+// the number of given
+func ParallelTimes[Int intType](num Int) func(func(Int) bool) {
+	return func(yield func(Int) bool) {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
 
 		var wg sync.WaitGroup
-		wg.Add(len(xs))
+		wg.Add(int(num))
 
-		for i, x := range xs {
+		for i := range uint64(num) {
 			go func() {
 				defer wg.Done()
 
 				select {
-					case <-ctx.Done():
+				case <-ctx.Done():
+					return
+				default:
+					if !yield(Int(i)) {
+						cancel()
 						return
-					default:
-						if !yield(i, x) {
-							cancel()
-							return
-						}
+					}
 				}
 			}()
 		}
