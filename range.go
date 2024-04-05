@@ -22,24 +22,22 @@ func Range[Int intType](start Int, stop Int) func(func(Int) bool) {
 // step is 0 then no iteration will take place.
 func RangeWithStep[Int intType](start Int, stop Int, step Int) func(func(Int) bool) {
 	return func(yield func(Int) bool) {
-		if step > 0 {
-			for i := uint64(start); i < uint64(stop); i += uint64(step) {
-				if !yield(Int(i)) {
-					return
-				}
-			}
-		}
-
-		if step < 0 {
-			for i := uint64(start); i > uint64(stop); i += uint64(step) {
-				if !yield(Int(i)) {
-					return
-				}
-			}
-		}
-
 		if step == 0 {
 			return
+		}
+
+		delta := int64(stop) - int64(start)
+		steps := int64(delta) / int64(step)
+		rem := int64(delta) % int64(step)
+		if rem > 0 {
+			steps += 1
+		}
+
+		for i := int64(0); i < steps; i++ {
+			num := i*int64(step) + int64(start)
+			if !yield(Int(num)) {
+				return
+			}
 		}
 	}
 }
