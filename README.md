@@ -120,7 +120,7 @@ func main() {
 
 The above code will print the following output:
 
-```golang
+```
 0 [1, 2]
 1 [3, 4]
 2 [5]
@@ -129,3 +129,28 @@ The above code will print the following output:
 If a batch size of 0 is passed in, then no iterations of the loop are performed. This behavior
 may change instead to panic as it's effectively a divide by 0.
 
+### Range
+
+The range function allows you to iterate over a range of integer types.
+
+```go
+import "github.com/dreamsofcode-io/loop"
+
+func main() {
+    for i := range loop.Range(0, 5) {
+        fmt.Println(i)
+    }
+}
+```
+
+The above code will print out
+
+```
+0
+1
+2
+3
+4
+```
+
+The `loop.Range` method includes the starting value, but excludes the stop value.
