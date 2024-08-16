@@ -16,7 +16,7 @@ func TestParallelShouldNotPanic(t *testing.T) {
 	xs := []int{}
 
 	for range 10000 {
-		xs = append(xs)
+		xs = append(xs, 0)
 	}
 
 	for i, _ := range loop.Parallel(xs) {
