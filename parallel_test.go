@@ -1,6 +1,7 @@
 package loop_test
 
 import (
+	"fmt"
 	"sync/atomic"
 	"testing"
 	"time"
@@ -20,6 +21,7 @@ func TestParallelShouldNotPanic(t *testing.T) {
 	}
 
 	for i, _ := range loop.Parallel(xs) {
+		fmt.Println("hello")
 		if i > 300 {
 			break
 		}
