@@ -1,10 +1,12 @@
+# ⚠️ This package is no longer supported
+
+Most of the functionality in this package is now provided by the standard library
+or does not work due to changes made to the way concurrency is handled in the new feature.
+
 # Loop
 
 Loop is a package that provides commonly used functions
 for ranging.
-
-⚠️ Most of the functionality in this package is now provided by the standard library
-or does not work due to changes made to the way concurrency is handled in the new feature.
 
 In any case, this package should not be used moving forward
 
