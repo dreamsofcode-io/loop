@@ -3,10 +3,11 @@
 Loop is a package that provides commonly used functions
 for ranging.
 
-⚠️ This package currently relies on the experimental
-[range-over-function iterators](https://tip.golang.org/wiki/RangefuncExperiment) 
-feature. You can use this package without it, however it will likely not be as
-an enjoyable experience.
+⚠️ Most of the functionality in this package is now provided by the standard library
+or does not work due to changes made to the way concurrency is handled in the new feature.
+
+In any case, this package should not be used moving forward
+
 
 ## Requirements
 
@@ -19,7 +20,7 @@ The package provides a number of different functions for ranging.
 
 ### Parallel
 
-> ⚠️ Since the features official release in 1.23, this method will now panic.
+⚠️ Since the features official release in 1.23, this method will now panic.
 
 A commonly used pattern in Go is to iterate over a slice of elements in parallel with a 
 wait group.
