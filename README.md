@@ -52,7 +52,7 @@ func main() {
 The above task will run in parallel, which means the total operation will only take 1 second, 
 instead of the 5 it would take otherwise. 
 
-⚠️ One thing to be aware of is that teach iteration runs in a separate goroutine. Therefore
+⚠️ One thing to be aware of is that each iteration runs in a separate goroutine. Therefore
 you'll want to make sure you are performing thread safe operations.
 
 The parallel task won't speed up any compute heavy operations, in that case, you're better
