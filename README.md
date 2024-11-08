@@ -19,6 +19,8 @@ The package provides a number of different functions for ranging.
 
 ### Parallel
 
+> ⚠️ Since the features official release in 1.23, this method will now panic.
+
 A commonly used pattern in Go is to iterate over a slice of elements in parallel with a 
 wait group.
 
